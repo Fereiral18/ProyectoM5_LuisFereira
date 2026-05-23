@@ -1,6 +1,10 @@
 
+import { AppRouters } from "./routes/AppRouters"
+
 export const App = () => {
+ 
+
   return (
-    <div>Hello World</div>
+ <AppRouters/>
   )
 }
