@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router"
-import { HomePage } from "../pages/HomePage"
+import { HomePage } from "../pages/Home/HomePage"
 import { ProductPage } from "../pages/ProductPage"
-import { RegisterPage } from "../pages/RegisterPage"
-import { LoginPage } from "../pages/LoginPage"
+import { RegisterPage } from "../pages/Register/RegisterPage"
+import { LoginPage } from "../pages/login/LoginPage"
 import { Layout } from "../components/Layout"
 
 export const AppRouters = () => {
