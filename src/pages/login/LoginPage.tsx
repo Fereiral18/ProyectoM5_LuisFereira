@@ -1,20 +1,19 @@
+import { useNavigate } from "react-router";
 import { AuthCard } from "../../components/form/AuthCard";
 import { useAuthService } from "../../hooks/useAuth";
 
+
 export const LoginPage = () => {
 
+    const navigate = useNavigate()
     const { login } = useAuthService();
-
   const handleLogin = async (values) => {
     try {
-      const userCredential = await login(
-        values.email,
-        values.password
-      );
+        await login(values.email, values.password);
+      navigate("/");
 
-      console.log("LOGIN OK:", userCredential.user);
     } catch (error) {
-      console.log("ERROR LOGIN:", error.message);
+      console.error(error);
     }
   };
 
