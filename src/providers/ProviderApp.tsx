@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router";
 import { ProductsProvider } from "./ProductsProvider";
+import { AuthProvider } from "./AuthProviders";
 
 interface Props {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ interface Props {
 export const ProviderApp = ({ children }: Props) => {
   return (
     <BrowserRouter>
-      <ProductsProvider>{children}</ProductsProvider>
+      <AuthProvider>
+        <ProductsProvider>{children}</ProductsProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 };

@@ -5,7 +5,6 @@ import { getProducts } from "../services/product.service";
 import type { Product } from "../types/products.type";
 import { ProductsContext } from "../context/products.context";
 
-
 export function ProductsProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
