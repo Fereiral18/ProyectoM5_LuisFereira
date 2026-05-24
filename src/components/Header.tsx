@@ -1,7 +1,9 @@
 import { Link } from "react-router";
 import "./styles.css";
+import { useAuthService } from "../hooks/useAuth";
 
 export const Header = () => {
+   const { user, logout } = useAuthService();
   return (
     <header className="nav-header">
 
@@ -49,8 +51,18 @@ export const Header = () => {
           <Link to="/products">
             Productos
           </Link>
-
-          <Link
+{user ? (
+          <>
+            <span>{user.email}</span>
+            <button
+              onClick={() => (window.confirm("Logout?") ? logout() : null)}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+             <Link
             to="/login"
             className="login-link"
           >
@@ -63,6 +75,9 @@ export const Header = () => {
           >
             Registro
           </Link>
+          </>
+        )}
+         
 
         </div>
 
