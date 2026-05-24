@@ -1,6 +1,23 @@
 import { AuthCard } from "../../components/form/AuthCard";
+import { useAuthService } from "../../hooks/useAuth";
 
 export const LoginPage = () => {
+
+    const { login } = useAuthService();
+
+  const handleLogin = async (values) => {
+    try {
+      const userCredential = await login(
+        values.email,
+        values.password
+      );
+
+      console.log("LOGIN OK:", userCredential.user);
+    } catch (error) {
+      console.log("ERROR LOGIN:", error.message);
+    }
+  };
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -18,8 +35,7 @@ export const LoginPage = () => {
           </p>
         </div>
 
-       
-      <AuthCard
+     <AuthCard
       title="Iniciar sesión"
       buttonText="Entrar"
       fields={[
@@ -27,7 +43,7 @@ export const LoginPage = () => {
           name: "email",
           label: "Email",
           type: "email",
-          placeholder: "tuemail@ejemplo.com"
+          placeholder: "tuemail@gmail.com"
         },
         {
           name: "password",
@@ -36,12 +52,7 @@ export const LoginPage = () => {
           placeholder: "••••••••"
         }
       ]}
-      footerText="¿No tenés cuenta?"
-      footerActionText={{
-        text: "Registrate",
-        onClick: () => console.log("ir a register")
-      }}
-      onSubmit={() => console.log("login")}
+      onSubmit={handleLogin}
     />
 
       </div>

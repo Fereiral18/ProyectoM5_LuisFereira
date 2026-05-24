@@ -9,7 +9,16 @@ export const AuthCard = ({
   footerText,
   footerActionText,
   onSubmit
-}) => {
+}:{
+  title: string;
+  fields: any[];
+  buttonText: string;
+  footerText?: string;
+  footerActionText?: {
+    text: string;
+    onClick: () => void;
+  };
+onSubmit: (values: any) => void}) => {
   const [values, setValues] = useState({});
   const { errors, validate } = useAuthValidation();
 

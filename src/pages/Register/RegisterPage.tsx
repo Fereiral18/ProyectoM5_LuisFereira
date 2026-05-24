@@ -1,7 +1,24 @@
+import { useNavigate } from "react-router";
 import { AuthCard } from "../../components/form/AuthCard";
+import { useAuthService } from "../../hooks/useAuth";
 
 
 export const RegisterPage = () => {
+    const { register } = useAuthService();
+  const navigate = useNavigate();
+  const handleRegister = async (values) => {
+    try {
+      const userCredential = await register(
+        values.email,
+        values.password
+      );
+
+      console.log("REGISTER OK:", userCredential.user);
+    } catch (error) {
+      console.log("ERROR REGISTER:", error.message);
+    }
+  };
+
   return (
      <div className="login-page">
       <div className="login-container">
@@ -44,9 +61,9 @@ export const RegisterPage = () => {
       footerText="¿Ya tenés cuenta?"
       footerActionText={{
         text: "Iniciar sesión",
-        onClick: () => console.log("ir a login")
+        onClick: () => navigate("/login")
       }}
-      onSubmit={() => console.log("register")}
+    onSubmit={handleRegister}
     />
     </div>
     </div>
