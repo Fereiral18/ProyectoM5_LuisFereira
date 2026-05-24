@@ -1,0 +1,329 @@
+/* HEADER */
+
+.nav-header {
+  width: 100%;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid #e5e7eb;
+
+  box-shadow:
+    0 4px 25px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================
+   TOP SECTION
+========================= */
+
+.header-top {
+  max-width: 1400px;
+
+  margin: auto;
+
+  padding: 18px 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+/* =========================
+   BOTTOM SECTION
+========================= */
+
+.header-bottom {
+  width: 100%;
+
+  border-top: 1px solid #f1f5f9;
+
+  background: rgba(248, 250, 252, 0.7);
+
+  padding: 14px 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  backdrop-filter: blur(8px);
+}
+
+/* LOGO */
+
+.logo a {
+  text-decoration: none;
+
+  font-size: 2rem;
+
+  font-weight: 800;
+
+  background:
+    linear-gradient(135deg, #2563eb, #60a5fa);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* SEARCH */
+
+.search {
+  flex: 1;
+
+  max-width: 700px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.search input {
+  width: 100%;
+
+  padding: 16px 60px 16px 20px;
+
+  border-radius: 18px;
+
+  border: 1px solid #dbe3f0;
+
+  background: white;
+
+  font-size: 0.95rem;
+
+  outline: none;
+
+  transition: all 0.3s ease;
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.04);
+}
+
+.search input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.search button {
+  position: absolute;
+
+  right: 8px;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #2563eb;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.search button:hover {
+  background: #1d4ed8;
+
+  transform: scale(1.05);
+}
+
+/* PUBLIC */
+
+.public {
+  background:
+    linear-gradient(135deg, #eff6ff, #dbeafe);
+
+  border: 1px solid #bfdbfe;
+
+  border-radius: 18px;
+
+  padding: 12px 18px;
+
+  min-width: 210px;
+
+  text-align: center;
+}
+
+.send {
+  color: #2563eb;
+
+  font-size: 0.8rem;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.buy {
+  color: #1e293b;
+
+  margin-top: 4px;
+
+  font-size: 0.95rem;
+}
+
+/* FILTERS */
+
+.filters {
+  display: flex;
+
+  gap: 12px;
+}
+
+.filters button {
+  border: none;
+
+  background: transparent;
+
+  padding: 10px 16px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  color: #374151;
+
+  transition: all 0.3s ease;
+}
+
+.filters button:hover {
+  background: #2563eb;
+
+  color: white;
+}
+
+/* USER OPTIONS */
+
+.users-option {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.users-option a {
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.users-option a:first-child {
+  color: #111827;
+}
+
+.users-option a:first-child:hover {
+  color: #2563eb;
+}
+
+/* LOGIN */
+
+.login-link {
+  color: #374151;
+}
+
+.login-link:hover {
+  color: #2563eb;
+}
+
+/* REGISTER */
+
+.register-btn {
+  background:
+    linear-gradient(135deg, #2563eb, #1d4ed8);
+
+  color: white;
+
+  padding: 10px 18px;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 8px 20px rgba(37, 99, 235, 0.2);
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 24px rgba(37, 99, 235, 0.3);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+
+  .header-top {
+    flex-wrap: wrap;
+  }
+
+  .search {
+    width: 100%;
+
+    max-width: 100%;
+  }
+
+  .header-bottom {
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+
+    justify-content: center;
+  }
+
+  .users-option {
+    flex-wrap: wrap;
+
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .header-top,
+  .header-bottom {
+    padding: 16px;
+  }
+
+  .logo a {
+    font-size: 1.6rem;
+  }
+
+  .public {
+    width: 100%;
+  }
+
+  .filters {
+    width: 100%;
+  }
+
+  .filters button {
+    flex: 1;
+  }
+
+  .register-btn {
+    width: 100%;
+
+    text-align: center;
+  }
+}
