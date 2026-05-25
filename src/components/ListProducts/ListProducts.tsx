@@ -1,11 +1,22 @@
 // ListProducts.tsx
 
+import { useNavigate, useSearchParams } from "react-router";
 import { useProducts } from "../../hooks/useProducts";
 
 import "./style.css";
+import { useMemo } from "react";
 
 export const ListProducts = () => {
   const { products, loading } = useProducts();
+  const navigate = useNavigate();
+const [searchParams] = useSearchParams();
+const category = searchParams.get("category");
+const filteredProducts = useMemo(() => {
+  return category
+    ? products.filter((p) => p.category === category)
+    : products;
+}, [products, category]);
+
 
   if (loading) {
     return (
@@ -41,7 +52,7 @@ export const ListProducts = () => {
       </div>
 
       {/* EMPTY STATE */}
-      {products.length === 0 ? (
+      {filteredProducts.length === 0 ? (
         <div className="empty-products">
           <h3>No encontramos productos</h3>
 
@@ -53,10 +64,11 @@ export const ListProducts = () => {
       ) : (
         <div className="products-grid">
 
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <article
-              key={product.id}
-              className="product-card"
+               key={product.id}
+  className="product-card"
+  onClick={() => navigate(`/products/${product.id}`)}
             >
 
               {/* IMAGE */}
@@ -99,7 +111,7 @@ export const ListProducts = () => {
                     </span>
                   </div>
 
-                  <button className="buy-button">
+                  <button className="buy-button" onClick={() => navigate(`/products/${product.id}`)}>
                     Comprar
                   </button>
 
