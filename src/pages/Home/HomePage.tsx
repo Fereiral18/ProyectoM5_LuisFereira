@@ -1,6 +1,12 @@
+
+import { useProducts } from "../../hooks/useProducts";
 import "./style.css";
 
+
 export const HomePage = () => {
+  const { products, loading } = useProducts();
+
+  const featuredProducts = products.slice(0, 6);
   return (
     <main className="home">
 
@@ -45,51 +51,80 @@ export const HomePage = () => {
 
       {/* PRODUCTOS */}
       <section className="featured-products">
-        <h2>Productos destacados</h2>
 
-        <div className="products-grid">
+      <div className="section-header">
+        <div>
+          <span className="section-badge">
+            Destacados
+          </span>
 
-          <div className="product-card">
-            <img
-              src="https://images.unsplash.com/photo-1542291026-7eec264c27ff"
-              alt="Producto"
-            />
+          <h2>Productos destacados</h2>
 
-            <h3>Zapatillas Urban</h3>
+          <p>
+            Descubrí los productos más
+            populares de nuestra tienda.
+          </p>
+        </div>
+      </div>
 
-            <p className="price">$89.99</p>
+      {loading ? (
+        <div className="carousel-skeleton">
+          {Array.from({ length: 6 }).map(
+            (_, index) => (
+              <div
+                key={index}
+                className="skeleton-card"
+              />
+            )
+          )}
+        </div>
+      ) : (
+        <div className="products-carousel">
 
-            <button>Agregar al carrito</button>
-          </div>
+          {featuredProducts.map((product) => (
+            <article
+              key={product.id}
+              className="featured-card"
+            >
 
-          <div className="product-card">
-            <img
-              src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
-              alt="Producto"
-            />
+              {/* IMAGE */}
+              <div className="featured-image-container">
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  className="featured-image"
+                />
+              </div>
 
-            <h3>Smartphone Pro</h3>
+              {/* CONTENT */}
+              <div className="featured-content">
 
-            <p className="price">$999.99</p>
+                <h3>{product.name}</h3>
 
-            <button>Agregar al carrito</button>
-          </div>
+                <p>
+                  {product.description}
+                </p>
 
-          <div className="product-card">
-            <img
-              src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-              alt="Producto"
-            />
+                <div className="featured-footer">
 
-            <h3>Auriculares Premium</h3>
+                  <span className="featured-price">
+                    ${product.price}
+                  </span>
 
-            <p className="price">$199.99</p>
+                  <button>
+                    Agregar
+                  </button>
 
-            <button>Agregar al carrito</button>
-          </div>
+                </div>
+
+              </div>
+
+            </article>
+          ))}
 
         </div>
-      </section>
+      )}
+    </section>
 
       {/* BENEFICIOS */}
       <section className="benefits">

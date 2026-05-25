@@ -124,68 +124,263 @@
   color: white;
 }
 
-/* PRODUCTOS */
+/* FEATURED PRODUCTS */
 
 .featured-products {
-  padding: 80px 8%;
-}
-
-.featured-products h2 {
-  font-size: 2rem;
-  margin-bottom: 40px;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-
-.product-card {
-  background: white;
-  border-radius: 20px;
+  padding: 70px 40px;
+  background: #f8fafc;
   overflow: hidden;
-  padding-bottom: 24px;
-  transition: 0.3s ease;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
 }
 
-.product-card:hover {
-  transform: translateY(-6px);
+/* HEADER */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 35px;
 }
 
-.product-card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
+.section-badge {
+  background: #dbeafe;
+  color: #1d4ed8;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  display: inline-block;
+
+  margin-bottom: 12px;
 }
 
-.product-card h3 {
-  padding: 20px 20px 10px;
-  font-size: 1.2rem;
+.section-header h2 {
+  font-size: 38px;
+  font-weight: 800;
+  color: #0f172a;
+
+  margin-bottom: 10px;
 }
 
-.price {
-  padding: 0 20px;
-  font-size: 1.4rem;
-  color: #2563eb;
-  font-weight: bold;
+.section-header p {
+  color: #64748b;
+  max-width: 550px;
+  line-height: 1.6;
 }
 
-.product-card button {
-  margin: 20px;
-  width: calc(100% - 40px);
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  background: #111827;
+.view-all-btn {
+  background: #1d4ed8;
   color: white;
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+
   cursor: pointer;
-  transition: 0.3s ease;
+
+  transition: 0.2s ease;
 }
 
-.product-card button:hover {
-  background: #2563eb;
+.view-all-btn:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+}
+
+/* CAROUSEL */
+.products-carousel {
+  display: flex;
+  gap: 24px;
+
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  padding: 12px 8px;
+
+  scrollbar-width: none;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.products-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.featured-card {
+ flex: 0 0 auto;
+  width: 300px;
+  min-width: 300px;
+
+  scroll-snap-align: center;
+}
+.products-carousel:hover {
+  cursor: grab;
+}
+
+.products-carousel:active {
+  cursor: grabbing;
+}
+.featured-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* IMAGE */
+
+.featured-image-container {
+  height: 240px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.featured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition: transform 0.4s ease;
+}
+
+.featured-card:hover .featured-image {
+  transform: scale(1.08);
+}
+
+/* CONTENT */
+
+.featured-content {
+  padding: 20px;
+}
+
+.featured-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+
+  margin-bottom: 10px;
+}
+
+.featured-content p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+
+  margin-bottom: 20px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+/* FOOTER */
+
+.featured-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.featured-price {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1d4ed8;
+}
+
+.featured-footer button {
+  background: #1d4ed8;
+  color: white;
+
+  border: none;
+
+  padding: 10px 16px;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.featured-footer button:hover {
+  background: #1e40af;
+}
+
+/* SKELETON */
+
+.carousel-skeleton {
+  display: flex;
+  gap: 20px;
+}
+
+.skeleton-card {
+  width: 300px;
+  height: 420px;
+
+  border-radius: 24px;
+
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+
+  background-size: 200% 100%;
+
+  animation: skeleton 1.5s infinite;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .featured-products {
+    padding: 50px 20px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .section-header h2 {
+    font-size: 30px;
+  }
+
+  .featured-card {
+    min-width: 260px;
+    max-width: 260px;
+  }
+
+  .featured-image-container {
+    height: 200px;
+  }
 }
 
 /* BENEFICIOS */
