@@ -1,24 +1,27 @@
-// src/providers/ProductsProvider.tsx
+import { useEffect, useState, useCallback } from "react";
 
-import { useEffect, useMemo, useState } from "react";
 import { getProducts } from "../services/product.service";
 import type { Product } from "../types/products.type";
+
 import { ProductsContext } from "../context/products.context";
-import { useDebounce } from "../hooks/useDebaunce";
+import { useSearchParams } from "react-router";
 
 export function ProductsProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
+
   const [search, setSearch] = useState("");
-
-  //* DEBOUNCE
-  const debouncedSearch = useDebounce(search, 500);
-
-  async function loadProducts() {
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+  const loadProducts = useCallback(async () => {
     try {
       setLoading(true);
 
       const data = await getProducts();
+
+      await delay(2000);
 
       setProducts(data);
     } catch (error) {
@@ -26,38 +29,18 @@ export function ProductsProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }
-
+  }, []);
   useEffect(() => {
     loadProducts();
-  }, []);
-
-   //* FILTER PRODUCTS
-  const filteredProducts = useMemo(() => {
-    if (!debouncedSearch.trim()) {
-      return products;
-    }
-
-    return products.filter((product) =>
-      product.name
-        .toLowerCase()
-        .includes(
-          debouncedSearch.toLowerCase()
-        )
-    );
-  }, [products, debouncedSearch]);
+  }, [category]);
 
   return (
     <ProductsContext.Provider
       value={{
-        products: filteredProducts,
-
+        products,
         loading,
-
         loadProducts,
-
         search,
-
         setSearch,
       }}
     >

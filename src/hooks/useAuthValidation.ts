@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { AuthErrors } from "../types/authErrors";
+import type { AuthErrors } from "../types/authErrors.type";
 
 export const useAuthValidation = () => {
   const [errors, setErrors] = useState({});

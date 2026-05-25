@@ -1,9 +1,20 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./styles.css";
 import { useAuthService } from "../hooks/useAuth";
+import { useProducts } from "../hooks/useProducts";
+import { useState } from "react";
 
 export const Header = () => {
    const { user, logout } = useAuthService();
+     const { search, setSearch } =
+    useProducts();
+       const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSelect = (category: string) => {
+    setOpen(false);
+    navigate(`/products?category=${category}`);
+  };
   return (
     <header className="nav-header">
 
@@ -15,15 +26,20 @@ export const Header = () => {
           <Link to="/">ShopWave</Link>
         </div>
 
-        {/* SEARCH */}
+         {/* SEARCH */}
         <div className="search">
           <input
             type="text"
             placeholder="Buscar productos, marcas y más..."
+            value={search}
+            onChange={(e) =>
+              setSearch(e.target.value)
+            }
           />
 
           <button>🔍</button>
         </div>
+
 
         {/* PUBLICIDAD */}
         <div className="public">
@@ -39,7 +55,35 @@ export const Header = () => {
         {/* FILTROS */}
         <div className="filter-container">
           <div className="filters">
-            <button>Categorías</button>
+            <div className="categories-wrapper">
+
+      <button onClick={() => setOpen(!open)}>
+        Categorías
+      </button>
+
+      {open && (
+        <div className="dropdown">
+
+          <button onClick={() => handleSelect("Tecnologia")}>
+            Tecnología
+          </button>
+
+          <button onClick={() => handleSelect("Audio")}>
+            Audio
+          </button>
+
+          <button onClick={() => handleSelect("Accesorios")}>
+            Accesorios
+          </button>
+
+          <button onClick={() => handleSelect("Moda")}>
+            Moda
+          </button>
+
+        </div>
+      )}
+
+    </div>
             <button>Ofertas</button>
             <button>Ayuda</button>
           </div>
@@ -53,13 +97,23 @@ export const Header = () => {
           </Link>
 {user ? (
           <>
-            <span>{user.email}</span>
-            <button
-              onClick={() => (window.confirm("Logout?") ? logout() : null)}
-            >
-              Logout
-            </button>
-          </>
+  <div className="user-session">
+    <span className="user-email">
+      {user.email}
+    </span>
+
+    <button
+      className="logout-btn"
+      onClick={() =>
+        window.confirm("¿Estas seguro de Cerrar Sesión?")
+          ? logout()
+          : null
+      }
+    >
+      Logout
+    </button>
+  </div>
+</>
         ) : (
           <>
              <Link

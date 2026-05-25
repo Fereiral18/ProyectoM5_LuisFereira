@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuthValidation } from "../../hooks/useAuthValidation";
-import "./style.css"
+import "./style.css";
 
 export const AuthCard = ({
   title,
@@ -8,8 +8,9 @@ export const AuthCard = ({
   buttonText,
   footerText,
   footerActionText,
-  onSubmit
-}:{
+  onSubmit,
+  serverError,
+}: {
   title: string;
   fields: any[];
   buttonText: string;
@@ -18,18 +19,20 @@ export const AuthCard = ({
     text: string;
     onClick: () => void;
   };
-onSubmit: (values: any) => void}) => {
+  onSubmit: (values: any) => void;
+  serverError?: string;
+}) => {
   const [values, setValues] = useState({});
   const { errors, validate } = useAuthValidation();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({
       ...values,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const isValid = validate(values);
@@ -57,13 +60,14 @@ onSubmit: (values: any) => void}) => {
             />
 
             {errors[field.name] && (
-              <span className="error-text">
-                {errors[field.name]}
-              </span>
+              <span className="error-text">{errors[field.name]}</span>
             )}
           </div>
         ))}
 
+        {/* ERROR DE FIREBASE */}
+       
+        {serverError && <p className="error-text">{serverError}</p>}
         <button type="submit" className="auth-btn">
           {buttonText}
         </button>

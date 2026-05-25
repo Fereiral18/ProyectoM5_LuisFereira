@@ -1,58 +1,75 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+
 import { auth } from "../config/firebase";
 
-import { getUserProfile, loginService, logoutService, signupService } from "../services/auth.service";
+import {
+  getUserProfile,
+  loginService,
+  logoutService,
+  signupService,
+} from "../services/auth.service";
+
 import type { AuthUser } from "../types/auth.type";
 import { AuthContext } from "../context/auth.context";
-
 
 interface Props {
   children: React.ReactNode;
 }
 
 export const AuthProvider = ({ children }: Props) => {
-  //* 1. ESTADOS:
+
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-    console.log("firebaseUser", firebaseUser);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
 
-    if (!firebaseUser) {
-      setUser(null);
+      if (!firebaseUser) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+
+      const profile = await getUserProfile(firebaseUser.uid);
+
+      if (profile) {
+        setUser(profile);
+      } else {
+        setUser({
+          uid: firebaseUser.uid,
+          email: firebaseUser.email || "",
+          role: "customer",
+        });
+      }
+
       setLoading(false);
-      return;
-    }
+    });
 
-   const profile = await getUserProfile(firebaseUser.uid);
+    return unsubscribe;
+  }, []);
 
-if (profile) {
-  setUser(profile);
-} else {
-  setUser({
-    uid: firebaseUser.uid,
-    email: firebaseUser.email || "",
-    role: "customer",
-  });
-}
-    setLoading(false);
-  });
+  const login = async (email: string, password: string): Promise<void> => {
+    await loginService(email, password);
+  };
 
-  return unsubscribe;
-}, []);
+  const signup = async (email: string, password: string): Promise<void> => {
+    await signupService(email, password);
+  };
 
-  //* firebaseUser: { uid, email, password } | null
+  const logout = async (): Promise<void> => {
+    await logoutService();
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        user: user,
-        loading: loading,
-        login: loginService,
-        signup: signupService,
-        logout: logoutService,
+        user,
+        loading,
+        login,
+        signup,
+        logout,
       }}
     >
       {children}
