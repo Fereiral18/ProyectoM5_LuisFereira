@@ -1,14 +1,24 @@
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+} from "firebase/firestore";
+
 import type { Order } from "../types/order.type";
 import { db } from "../config/firebase";
 
+export const subscribeToOrders = (
+  callback: (orders: Order[]) => void
+) => {
+  const ref = collection(db, "orders");
 
-// 📊 TRAER TODAS LAS ORDENES
-export const getAllOrders = async (): Promise<Order[]> => {
-  const snap = await getDocs(collection(db, "orders"));
+  const unsubscribe = onSnapshot(ref, (snapshot) => {
+    const orders = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Order[];
 
-  return snap.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-  })) as Order[];
+    callback(orders);
+  });
+
+  return unsubscribe;
 };
