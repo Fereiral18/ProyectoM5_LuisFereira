@@ -21,7 +21,7 @@ export const Header = () => {
       <div className="header-top">
         {/* LOGO */}
         <div className="logo">
-          <Link to="/">ShopWave</Link>
+          <Link to="/">ShoppING</Link>
         </div>
 
         {/* SEARCH */}

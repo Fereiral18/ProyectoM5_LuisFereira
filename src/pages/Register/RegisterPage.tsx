@@ -3,9 +3,11 @@ import { AuthCard } from "../../components/form/AuthCard";
 import { useAuthService } from "../../hooks/useAuth";
 
 
+
 export const RegisterPage = () => {
-    const { register } = useAuthService();
+    const { register } = useAuthService()
   const navigate = useNavigate();
+
   const handleRegister = async (values) => {
     try {
       const userCredential = await register(
@@ -13,7 +15,7 @@ export const RegisterPage = () => {
         values.password
       );
 
-      console.log("REGISTER OK:", userCredential.user);
+      console.log("REGISTER OK:", userCredential);
     } catch (error) {
       console.log("ERROR REGISTER:", error.message);
     }
@@ -56,7 +58,8 @@ export const RegisterPage = () => {
           label: "Contraseña",
           type: "password",
           placeholder: "••••••••"
-        }
+        },
+       
       ]}
       footerText="¿Ya tenés cuenta?"
       footerActionText={{

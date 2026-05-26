@@ -18,46 +18,67 @@ interface Props {
 }
 
 export const AuthProvider = ({ children }: Props) => {
-
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // 🔐 Listener Firebase Auth
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      try {
+        if (!firebaseUser) {
+          setUser(null);
+          setLoading(false);
+          return;
+        }
 
-      if (!firebaseUser) {
+        const profile = await getUserProfile(firebaseUser.uid);
+
+        setUser(
+          profile ?? {
+            uid: firebaseUser.uid,
+            email: firebaseUser.email || "",
+            role: "customer",
+          }
+        );
+      } catch (error) {
+        console.error("Auth error:", error);
         setUser(null);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const profile = await getUserProfile(firebaseUser.uid);
-
-      if (profile) {
-        setUser(profile);
-      } else {
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email || "",
-          role: "customer",
-        });
-      }
-
-      setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
-  const login = async (email: string, password: string): Promise<void> => {
-    await loginService(email, password);
+  // 🔑 LOGIN
+  const login = async (email: string, password: string) => {
+    const firebaseUser = await loginService(email, password);
+
+    const profile = await getUserProfile(firebaseUser.uid);
+
+    setUser(
+      profile ?? {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email || "",
+        role: "customer",
+      }
+    );
   };
 
-  const signup = async (email: string, password: string): Promise<void> => {
-    await signupService(email, password);
+  // 📝 SIGNUP (REGISTER)
+  const register = async (email: string, password: string) => {
+    const firebaseUser = await signupService(email, password);
+
+    setUser({
+      uid: firebaseUser.uid,
+      email: firebaseUser.email || "",
+      role: "customer",
+    });
   };
 
-  const logout = async (): Promise<void> => {
+  // 🚪 LOGOUT
+  const logout = async () => {
     await logoutService();
     setUser(null);
   };
@@ -68,7 +89,7 @@ export const AuthProvider = ({ children }: Props) => {
         user,
         loading,
         login,
-        signup,
+        register, 
         logout,
       }}
     >

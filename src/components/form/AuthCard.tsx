@@ -58,7 +58,7 @@ export const AuthCard = ({
               onChange={handleChange}
               className={errors[field.name] ? "input-error" : ""}
             />
-
+  
             {errors[field.name] && (
               <span className="error-text">{errors[field.name]}</span>
             )}

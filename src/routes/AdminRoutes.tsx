@@ -1,18 +1,19 @@
 import { Navigate, Outlet } from "react-router";
 import { useAuthService } from "../hooks/useAuth";
 
-
-export const ProtectedRoute = () => {
+export const AdminRoute = () => {
   const { user, loading } = useAuthService();
 
-  //* 1. LOADING:
   if (loading) {
-    return <h2>Cargando productos...</h2>;
+    return <h2>Cargando...</h2>;
   }
 
-  //* 2. USER:
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== "admin") {
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;

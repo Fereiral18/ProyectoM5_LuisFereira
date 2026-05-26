@@ -2,13 +2,21 @@ import { useNavigate, useParams } from "react-router";
 import { useProducts } from "../../hooks/useProducts";
 
 import "./style.css";
+import { useCart } from "../../hooks/useCart";
 
 export const CartProducts = () => {
   const { id } = useParams();
-
+    const { addItem } = useCart();
   const { products } = useProducts();
   const navigate = useNavigate();
   const product = products.find((p) => p.id === id);
+  
+  if (!product) {
+    return <h2>Cargando producto...</h2>;
+  }
+  const handleAddToCart = () => {
+    addItem(product);
+  };
 
   return (
     <section className="product-detail">
@@ -36,7 +44,12 @@ export const CartProducts = () => {
 
         <div className="detail-price">${product.price}</div>
 
-        <button className="add-cart-btn">Agregar al carrito</button>
+       <button
+          className="add-cart-btn"
+          onClick={handleAddToCart}
+        >
+          Agregar al carrito
+        </button>
       </div>
     </section>
   );
