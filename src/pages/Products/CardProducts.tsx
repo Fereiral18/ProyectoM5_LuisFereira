@@ -3,14 +3,25 @@ import { useProducts } from "../../hooks/useProducts";
 
 import "./style.css";
 import { useCart } from "../../hooks/useCart";
+import { useOrders } from "../../hooks/useOrder";
+import { getReservedStock } from "../../utils/getReservedStock";
 
-export const CartProducts = () => {
+export const CardProducts = () => {
   const { id } = useParams();
-    const { addItem } = useCart();
+  const { addItem } = useCart();
   const { products } = useProducts();
   const navigate = useNavigate();
   const product = products.find((p) => p.id === id);
-  
+  const { orders } = useOrders();
+
+  if (!product) {
+    return <h2>Cargando producto...</h2>;
+  }
+
+  const reservedStock = getReservedStock(product.id, orders);
+
+  const availableStock = Math.max(product.stock - reservedStock, 0);
+
   if (!product) {
     return <h2>Cargando producto...</h2>;
   }
@@ -40,16 +51,19 @@ export const CartProducts = () => {
 
         <p className="detail-description">{product.description}</p>
 
-        <div className="detail-stock">Stock: {product.stock}</div>
+        <div className="detail-stock">Stock disponible: {availableStock}</div>
 
         <div className="detail-price">${product.price}</div>
 
        <button
-          className="add-cart-btn"
-          onClick={handleAddToCart}
-        >
-          Agregar al carrito
-        </button>
+  className="add-cart-btn"
+  onClick={handleAddToCart}
+  disabled={availableStock <= 0}
+>
+  {availableStock <= 0
+    ? "Sin stock"
+    : "Agregar al carrito"}
+</button>
       </div>
     </section>
   );

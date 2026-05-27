@@ -2,7 +2,6 @@ import { createContext } from "react";
 import type { Product } from "../types/products.type";
 import type { CartItem } from "../types/cart.type";
 
-
 export type CartContextType = {
   items: CartItem[];
 
@@ -11,7 +10,7 @@ export type CartContextType = {
   removeItem: (id: string) => void;
 
   clearCart: () => void;
-    increaseQuantity: (id: string) => void;
+  increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
 };
 

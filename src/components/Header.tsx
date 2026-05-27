@@ -67,7 +67,6 @@ export const Header = () => {
                 </div>
               )}
             </div>
-            <button>Ofertas</button>
             <button>Ayuda</button>
           </div>
         </div>

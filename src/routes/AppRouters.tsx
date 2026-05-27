@@ -5,9 +5,9 @@ import { LoginPage } from "../pages/login/LoginPage";
 import { Layout } from "../components/Layout";
 import { ProtectedRoute } from "./PrivatesRoutes";
 import { ProductPage } from "../pages/Products/ProductPage";
-import { CartProducts } from "../pages/Products/CartProducts";
+import { CardProducts } from "../pages/Products/CardProducts";
 import { AdminRoute } from "./AdminRoutes";
-import { AdminPage } from "../pages/AdminPage";
+import { AdminPage } from "../pages/admin/AdminPage";
 
 
 
@@ -23,7 +23,7 @@ export const AppRouters = () => {
 
         {/* USER PROTECTED ROUTES */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/products/:id" element={<CartProducts />} />
+          <Route path="/products/:id" element={<CardProducts />} />
         </Route>
 
         {/* ADMIN ROUTES */}

@@ -1,29 +1,25 @@
 import { useEffect, useState } from "react";
+import { subscribeToOrders } from "../services/admin.service";
 import type { Order } from "../types/order.type";
-import { getAllOrders } from "../services/admin.service";
-
 
 export const useAdminAnalytics = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetch = async () => {
-      const data = await getAllOrders();
+    const unsubscribe = subscribeToOrders((data) => {
       setOrders(data);
       setLoading(false);
-    };
+    });
 
-    fetch();
+    return () => unsubscribe();
   }, []);
 
-  // 💰 TOTAL VENTAS
-  const totalSales = orders.reduce(
-    (acc, o) => acc + o.total,
-    0
-  );
+   const totalSales = orders
+    .filter((order) => order.status === "paid")
+    .reduce((acc, order) => acc + order.total, 0);
 
-  // 📅 ÓRDENES POR DÍA
+
   const ordersByDay = orders.reduce((acc: any, order) => {
     const date = new Date(order.createdAt?.seconds * 1000)
       .toISOString()
@@ -33,8 +29,7 @@ export const useAdminAnalytics = () => {
     return acc;
   }, {});
 
-  // 🔥 TOP PRODUCTOS
-  const topProductsMap = new Map<string, { name: string; count: number }>();
+  const topProductsMap = new Map();
 
   orders.forEach(order => {
     order.items.forEach(item => {

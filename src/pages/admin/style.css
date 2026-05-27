@@ -1,0 +1,391 @@
+/* ========================= */
+/* ADMIN CONTAINER */
+/* ========================= */
+
+.admin-container {
+  padding: 24px;
+  background: #f6f7fb;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.admin-title {
+  font-size: clamp(22px, 4vw, 32px);
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.admin-loading {
+  padding: 40px;
+  font-size: 18px;
+}
+
+/* ========================= */
+/* CARDS GENERAL */
+/* ========================= */
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.highlight {
+  border-left: 5px solid #4f46e5;
+}
+
+/* ========================= */
+/* JSON */
+/* ========================= */
+
+.json-box {
+  background: #111827;
+  color: #d1d5db;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13px;
+}
+
+/* ========================= */
+/* LIST */
+/* ========================= */
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.badge {
+  background: #4f46e5;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* ========================= */
+/* FILTERS */
+/* ========================= */
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filter-btn {
+  background: #e5e7eb;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: #d1d5db;
+}
+
+.filter-btn.active {
+  background: #4f46e5;
+  color: white;
+}
+
+/* ========================= */
+/* ORDERS GRID (VERTICAL LIST) */
+/* ========================= */
+
+.orders-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ========================= */
+/* ORDER ROW (MODERNO DASHBOARD) */
+/* ========================= */
+
+.order-card {
+  display: grid;
+
+  grid-template-columns:
+    140px   /* ID */
+    120px   /* TOTAL */
+    180px   /* CLIENTE */
+    220px     /* ITEMS */
+    240px   /* STATUS */
+    160px;  /* ACTIONS */
+
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  padding: 14px 16px;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  transition: 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+}
+
+/* ========================= */
+/* TEXT */
+/* ========================= */
+
+.order-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========================= */
+/* ITEMS */
+/* ========================= */
+
+.order-items {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 10px;
+
+  background: #f9fafb;
+  border: 1px solid #eee;
+
+  border-radius: 8px;
+
+  max-width: 220px;
+}
+
+.order-item-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.order-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-item-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.order-item-qty,
+.order-item-price {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* ========================= */
+/* STATUS PILL */
+/* ========================= */
+
+.status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.paid {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ========================= */
+/* ACTIONS */
+/* ========================= */
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+
+.btn-approve,
+.btn-cancel,
+.btn-delete {
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  border: none;
+  cursor: pointer;
+
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.btn-approve {
+  background: #16a34a;
+  color: white;
+}
+
+.btn-approve:hover {
+  background: #15803d;
+}
+
+.btn-cancel {
+  background: #dc2626;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #b91c1c;
+}
+
+.btn-delete {
+  background: #111827;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #000;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.page-btn {
+  background: #4f46e5;
+  color: white;
+
+  border: none;
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.page-btn:hover {
+  background: #4338ca;
+}
+
+.page-btn:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 1100px) {
+  .order-card {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+
+  .order-items {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .order-item {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-approve,
+  .btn-cancel,
+  .btn-delete {
+    width: 100%;
+  }
+}

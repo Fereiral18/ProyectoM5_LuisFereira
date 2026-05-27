@@ -12,10 +12,14 @@ export const subscribeToOrders = (
   const ref = collection(db, "orders");
 
   const unsubscribe = onSnapshot(ref, (snapshot) => {
+    console.log("🔥 SNAPSHOT UPDATE");
+
     const orders = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data(),
     })) as Order[];
+
+    console.log("ORDERS:", orders);
 
     callback(orders);
   });

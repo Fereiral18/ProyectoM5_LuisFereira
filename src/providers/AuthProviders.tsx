@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }: Props) => {
           profile ?? {
             uid: firebaseUser.uid,
             email: firebaseUser.email || "",
+            displayName: firebaseUser.email?.split("@")[0],
             role: "customer",
           }
         );
@@ -61,6 +62,7 @@ export const AuthProvider = ({ children }: Props) => {
       profile ?? {
         uid: firebaseUser.uid,
         email: firebaseUser.email || "",
+        displayName: email.split("@")[0],
         role: "customer",
       }
     );
@@ -70,11 +72,16 @@ export const AuthProvider = ({ children }: Props) => {
   const register = async (email: string, password: string) => {
     const firebaseUser = await signupService(email, password);
 
-    setUser({
-      uid: firebaseUser.uid,
-      email: firebaseUser.email || "",
-      role: "customer",
-    });
+    const profile = await getUserProfile(firebaseUser.uid);
+
+    setUser(
+      profile ?? {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email || "",
+        displayName: email.split("@")[0],
+        role: "customer",
+      }
+    );
   };
 
   // 🚪 LOGOUT
@@ -89,7 +96,7 @@ export const AuthProvider = ({ children }: Props) => {
         user,
         loading,
         login,
-        register, 
+        register,
         logout,
       }}
     >

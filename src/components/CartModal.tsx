@@ -1,5 +1,8 @@
 import { useCart } from "../hooks/useCart";
 import { createOrder } from "../services/checkout.service";
+
+import { auth } from "../config/firebase";
+
 import "./styles.css";
 
 type Props = {
@@ -8,7 +11,8 @@ type Props = {
 };
 
 export const CartModal = ({ isOpen, onClose }: Props) => {
-  const { items, increaseQuantity, decreaseQuantity, clearCart } = useCart();
+  const { items, increaseQuantity, decreaseQuantity, clearCart, removeItem } =
+    useCart();
 
   if (!isOpen) return null;
 
@@ -19,16 +23,25 @@ export const CartModal = ({ isOpen, onClose }: Props) => {
 
   const handleCheckout = async () => {
     try {
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("Debes iniciar sesión");
+        return;
+      }
+
       await createOrder(items);
 
       clearCart();
 
-      alert("Compra realizada con éxito 🎉");
+      alert("Orden enviada correctamente 🎉");
     } catch (error: any) {
       alert(error.message || "Error en la compra");
     }
   };
+
   const formattedTotal = Number(total.toFixed(2));
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="cart-modal" onClick={(e) => e.stopPropagation()}>
@@ -49,9 +62,9 @@ export const CartModal = ({ isOpen, onClose }: Props) => {
 
                   <div className="cart-info">
                     <h4>{item.name}</h4>
+
                     <p>${item.price}</p>
 
-                    {/* BOTONES +/- */}
                     <div className="qty-controls">
                       <button onClick={() => decreaseQuantity(item.id)}>
                         −
@@ -62,6 +75,14 @@ export const CartModal = ({ isOpen, onClose }: Props) => {
                       <button onClick={() => increaseQuantity(item.id)}>
                         +
                       </button>
+                      <input
+                      type="button"
+                      name="Eliminar"
+                      value="Eliminar"
+                        className="remove-btn"
+                        onClick={() => removeItem(item.id)}
+                      
+                      />
                     </div>
                   </div>
                 </div>
