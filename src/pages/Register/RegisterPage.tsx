@@ -15,9 +15,8 @@ export const RegisterPage = () => {
         values.password
       );
 
-      console.log("REGISTER OK:", userCredential);
     } catch (error) {
-      console.log("ERROR REGISTER:", error.message);
+      error.message
     }
   };
 

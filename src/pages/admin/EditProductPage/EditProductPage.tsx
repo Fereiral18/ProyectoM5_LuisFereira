@@ -5,7 +5,7 @@ import {
   getProductById,
   updateProduct,
 } from "../../../services/product.service";
-import "./EditProductPage.css";
+import "./style.css";
 
 export const EditProductPage = () => {
   const { id } = useParams();

@@ -1,18 +1,26 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuthService } from "../hooks/useAuth";
 
+type Role = "admin" | "customer";
 
-export const ProtectedRoute = () => {
+interface ProtectedRouteProps {
+  allowedRoles?: Role[];
+}
+
+export const ProtectedRoute = ({
+  allowedRoles,
+}: ProtectedRouteProps) => {
   const { user, loading } = useAuthService();
 
-  //* 1. LOADING:
-  if (loading) {
-    return <h2>Cargando productos...</h2>;
-  }
+  if (loading) return <p>Cargando...</p>;
 
-  //* 2. USER:
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  // VALIDAR ROLES
+  if (allowedRoles && !allowedRoles.includes(user.role as Role)) {
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;

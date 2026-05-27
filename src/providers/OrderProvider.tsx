@@ -35,14 +35,11 @@ export const OrdersProvider = ({
     id: doc.id,
   } as Order;
 });
-        console.log("ORDERS FIREBASE:", data);
+      
 
         setOrders(data);
       },
 
-      (error) => {
-        console.error("ORDERS ERROR:", error);
-      }
     );
 
     return unsubscribe;

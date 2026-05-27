@@ -12,15 +12,37 @@ import { FirebaseError } from "firebase/app";
 import { auth, db } from "../lib/firebase";
 import type { AuthUser } from "../types/auth.type";
 
-// ========================= LOGIN =========================
-export const loginService = async (email: string, password: string) => {
-  try {
-    const credentials = await signInWithEmailAndPassword(auth, email, password);
 
-    return credentials.user;
+// ========================= LOGIN =========================
+export const loginService = async (
+  email: string,
+  password: string
+): Promise<AuthUser> => {
+  try {
+    // LOGIN FIREBASE AUTH
+    const credentials = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    const firebaseUser = credentials.user;
+
+    // 🔥 BUSCAR PERFIL EN FIRESTORE
+    const profile = await getUserProfile(firebaseUser.uid);
+
+    if (!profile) {
+      throw new Error("No se encontró el perfil del usuario");
+    }
+
+    return profile;
+
   } catch (error) {
+
     if (error instanceof FirebaseError) {
+
       switch (error.code) {
+
         case "auth/user-not-found":
           throw new Error("El usuario no existe");
 
@@ -31,7 +53,8 @@ export const loginService = async (email: string, password: string) => {
           throw new Error("El email no es válido");
 
         case "auth/too-many-requests":
-          throw new Error("Demasiados intentos fallidos. Intenta más tarde");
+          throw new Error("Demasiados intentos fallidos");
+
         case "auth/invalid-credential":
         case "auth/invalid-login-credentials":
           throw new Error("Email o contraseña incorrectos");
@@ -44,7 +67,6 @@ export const loginService = async (email: string, password: string) => {
     throw new Error("Error inesperado");
   }
 };
-
 
 // ========================= SIGNUP =========================
 export const signupService = async (
@@ -78,7 +100,7 @@ export const signupService = async (
       createdAt: new Date(),
     };
 
-    console.log("CREANDO USER:", userData);
+  
 
     // 🔥 Guardar en Firestore
     await setDoc(
@@ -131,7 +153,6 @@ export const getUserProfile = async (uid: string): Promise<AuthUser | null> => {
   if (!snapshot.exists()) return null;
 
   const data = snapshot.data();
-console.log(data)
   return {
     uid,
     email: data.email,

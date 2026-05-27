@@ -53,21 +53,21 @@ export const AuthProvider = ({ children }: Props) => {
   }, []);
 
   // 🔑 LOGIN
-  const login = async (email: string, password: string) => {
-    const firebaseUser = await loginService(email, password);
+ 
+const login = async (email: string, password: string) => {
+  const firebaseUser = await loginService(email, password);
 
-    const profile = await getUserProfile(firebaseUser.uid);
+  const profile = await getUserProfile(firebaseUser.uid);
 
-    setUser(
-      profile ?? {
-        uid: firebaseUser.uid,
-        email: firebaseUser.email || "",
-        displayName: email.split("@")[0],
-        role: "customer",
-      }
-    );
+  const userData = {
+    uid: firebaseUser.uid,
+    email: firebaseUser.email || "",
+    displayName: email.split("@")[0],
+    role: profile?.role || "customer",
   };
 
+  setUser(userData);
+};
   // 📝 SIGNUP (REGISTER)
   const register = async (email: string, password: string) => {
     const firebaseUser = await signupService(email, password);

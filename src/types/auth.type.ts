@@ -6,3 +6,6 @@ export type AuthUser = {
   role: Role;
   displayName: string
 };
+export type Props = {
+  allowedRoles?: ("admin" | "customer")[];
+};

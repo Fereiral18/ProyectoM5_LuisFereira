@@ -1,11 +1,13 @@
 import { Outlet } from "react-router-dom";
+import { AdminSidebar } from "./AdminHeader";
 
-import { AdminHeader } from "./AdminHeader";
+
+
 
 export const AdminLayout = () => {
 	return (
 		<>
-			<AdminHeader />
+			<AdminSidebar/>
 
 			<main
 				style={{

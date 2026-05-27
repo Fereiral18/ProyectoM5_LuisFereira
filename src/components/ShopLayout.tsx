@@ -1,12 +1,12 @@
-
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 
-export const Layout = () => {
+export const ShopLayout = () => {
   return (
     <>
       <Header />
-      <main style={{ padding: "2rem" }}>
+
+      <main>
         <Outlet />
       </main>
     </>
