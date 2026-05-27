@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { useAuthService } from "../hooks/useAuth";
 import { useProducts } from "../hooks/useProducts";

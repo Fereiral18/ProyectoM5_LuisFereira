@@ -1,7 +1,7 @@
 import { useCart } from "../hooks/useCart";
 import { createOrder } from "../services/checkout.service";
 
-import { auth } from "../config/firebase";
+import { auth } from "../lib/firebase";
 
 import "./styles.css";
 

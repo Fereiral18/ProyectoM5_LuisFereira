@@ -1,4 +1,4 @@
-import { auth } from "../config/firebase";
+import { auth } from "../lib/firebase";
 import {
   addDoc,
   collection,
@@ -10,7 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-import { db } from "../config/firebase";
+import { db } from "../lib/firebase";
 
 import type { Order } from "../types/order.type";
 

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../lib/firebase";
 
 import type { Product } from "../types/products.type";
 import { ProductsContext } from "../context/products.context";
-import { useSearchParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
+
 
 const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
@@ -50,14 +51,16 @@ export function ProductsProvider({
   }, []);
 
   return (
-    <ProductsContext.Provider
-      value={{
-        products,
-        loading,
-        search,
-        setSearch,
-      }}
-    >
+   
+   <ProductsContext.Provider
+	value={{
+		products,
+		setProducts,
+		loading,
+		search,
+		setSearch,
+	}}
+>
       {children}
     </ProductsContext.Provider>
   );

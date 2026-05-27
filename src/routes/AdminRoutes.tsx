@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuthService } from "../hooks/useAuth";
 
 export const AdminRoute = () => {

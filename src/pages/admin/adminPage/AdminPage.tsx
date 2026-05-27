@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { useAdminAnalytics } from "../../hooks/useAnalitycs";
-import { useAuthService } from "../../hooks/useAuth";
+import { useAdminAnalytics } from "../../../hooks/useAnalitycs";
+import { useAuthService } from "../../../hooks/useAuth";
 
 import {
   approveOrder,
   cancelOrder,
   deleteOrder,
-} from "../../services/orders.service";
+} from "../../../services/orders.service";
 
 import "./style.css";
 

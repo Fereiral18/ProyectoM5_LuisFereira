@@ -6,7 +6,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 
-import { db, auth } from "../config/firebase";
+import { db, auth } from "../lib/firebase";
 import type { CartItem } from "../types/cart.type";
 
 export const createOrder = async (items: CartItem[]) => {

@@ -1,5 +1,5 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { db } from "../lib/firebase";
 import type { Product } from "../types/products.type";
 
 const productsCollection = collection(db, "products");
@@ -34,3 +34,35 @@ export const getProductById = async (
     ...snapshot.data(),
   } as Product;
 };
+export const updateProduct =
+	async (
+		productId: string,
+		data: Partial<Product>
+	) => {
+		const documentRef =
+			doc(
+				db,
+				"products",
+				productId
+			);
+
+		await updateDoc(
+			documentRef,
+			data
+		);
+	};
+export const deleteProduct =
+	async (
+		productId: string
+	) => {
+		const documentRef =
+			doc(
+				db,
+				"products",
+				productId
+			);
+
+		await deleteDoc(
+			documentRef
+		);
+	};

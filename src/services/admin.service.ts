@@ -4,7 +4,7 @@ import {
 } from "firebase/firestore";
 
 import type { Order } from "../types/order.type";
-import { db } from "../config/firebase";
+import { db } from "../lib/firebase";
 
 export const subscribeToOrders = (
   callback: (orders: Order[]) => void

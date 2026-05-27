@@ -9,7 +9,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 
 import { FirebaseError } from "firebase/app";
 
-import { auth, db } from "../config/firebase";
+import { auth, db } from "../lib/firebase";
 import type { AuthUser } from "../types/auth.type";
 
 // ========================= LOGIN =========================

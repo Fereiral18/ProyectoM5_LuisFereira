@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./AuthProviders";
 import { ProductsProvider } from "./ProductsProvider";
 import { OrdersProvider } from "./OrderProvider";

@@ -1,4 +1,4 @@
-export type Category = "Moda" | "Audio" | "Tecnologia"| "Accesorios";
+export type Category = "Moda" | "Audio" | "Tecnologia"| "Accesorios" | "other";
 
 export type Product = {
   id: string;

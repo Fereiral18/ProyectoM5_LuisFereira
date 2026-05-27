@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { AuthCard } from "../../components/form/AuthCard";
 import { useAuthService } from "../../hooks/useAuth";
 

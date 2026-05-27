@@ -1,7 +1,7 @@
 import { collection, onSnapshot } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 
-import { db } from "../config/firebase";
+import { db } from "../lib/firebase";
 
 import type { Order } from "../types/order.type";
 
