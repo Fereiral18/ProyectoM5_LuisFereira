@@ -1,21 +1,18 @@
 import { Outlet } from "react-router-dom";
 import { AdminSidebar } from "./AdminHeader";
 
-
-
+import "./style.css";
 
 export const AdminLayout = () => {
-	return (
-		<>
-			<AdminSidebar/>
+  return (
+    <div className="admin-layout">
 
-			<main
-				style={{
-					padding: "2rem",
-				}}
-			>
-				<Outlet />
-			</main>
-		</>
-	);
+      <AdminSidebar />
+
+      <main className="admin-content">
+        <Outlet />
+      </main>
+
+    </div>
+  );
 };

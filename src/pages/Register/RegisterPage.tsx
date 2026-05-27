@@ -12,8 +12,9 @@ export const RegisterPage = () => {
     try {
       const userCredential = await register(
         values.email,
-        values.password
+        values.password,
       );
+      navigate("/")
 
     } catch (error) {
       error.message
