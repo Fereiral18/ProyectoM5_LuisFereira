@@ -12,8 +12,6 @@ export const ProtectedRoute = ({
 }: ProtectedRouteProps) => {
   const { user, loading } = useAuthService();
 
-  if (loading) return <p>Cargando...</p>;
-
   if (!user) {
     return <Navigate to="/login" replace />;
   }
