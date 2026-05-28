@@ -7,21 +7,32 @@ import { getReservedStock } from "../../utils/getReservedStock";
 
 import "./style.css";
 import { useOrders } from "../../hooks/useOrder";
+import { useDebounce } from "../../hooks/useDebaunce";
 
 export const ListProducts = () => {
-  const { products, loading } = useProducts();
+  const { products, loading, search } = useProducts();
   const { orders } = useOrders();
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const category = searchParams.get("category");
+  const debouncedSearch = useDebounce(search, 500);
+ const filteredProducts = useMemo(() => {
+  let filtered = category
+    ? products.filter((p) => p.category === category)
+    : products;
 
-  const filteredProducts = useMemo(() => {
-    return category
-      ? products.filter((p) => p.category === category)
-      : products;
-  }, [products, category]);
+  if (debouncedSearch.trim().length >= 2) {
+    filtered = filtered.filter((product) =>
+      product.name
+        .toLowerCase()
+        .includes(debouncedSearch.toLowerCase())
+    );
+  }
+
+  return filtered;
+}, [products, category, debouncedSearch]);
 
   if (loading) {
     return (

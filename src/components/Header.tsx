@@ -23,7 +23,7 @@ export const Header = () => {
 
     navigate(`/products?category=${category}`);
   };
-
+console.log(search)
  
   const handleLogout = async () => {
     const confirmLogout = window.confirm(
